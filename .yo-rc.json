@@ -1,0 +1,40 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "za.co.goosen",
+      "nativeLanguage": "en"
+    },
+    "jhipsterVersion": "6.2.0",
+    "applicationType": "monolith",
+    "baseName": "ngBootTodo",
+    "packageName": "za.co.goosen",
+    "packageFolder": "za/co/goosen",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "no",
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "h2Memory",
+    "prodDatabaseType": "mysql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "OTdkZjQ5NmE1Y2U5YWRjZDAwM2FlNzE1YWRhMjczMmY1OTk1NmZlOWM3NmQ4YjE3Zjg2ZGU3NTQzNmRhYjA1ZDMyMDY3MjZkNTY3MTZhNDMxOWFjZDc4MDI4YTIwNDU0MGM4YjVkNTdkZTI0MGZhODQ0YzUxYzU0YzE4MTQ1MDM=",
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "angularX",
+    "clientTheme": "materia",
+    "clientThemeVariant": "primary",
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": true,
+    "nativeLanguage": "en",
+    "languages": ["en"],
+    "blueprints": []
+  }
+}

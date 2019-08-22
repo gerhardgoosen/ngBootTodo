@@ -1,0 +1,125 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="ngBootTodoApp.task.home.title">Tasks</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-task"
+                [routerLink]="['/task/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span jhiTranslate="ngBootTodoApp.task.home.createLabel">
+            Create a new Task
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+
+    <div>
+
+        <form name="searchForm" role="form" novalidate (ngSubmit)="search()" [formGroup]="searchForm">
+
+            <div class="form-group">
+                <label class="form-control-label" jhiTranslate="ngBootTodoApp.task.home.searchByTitle"
+                       for="field_title">Search By Title</label>
+                <input type="text" class="form-control" name="title" id="field_title"
+                       formControlName="title"/>
+            </div>
+
+            <button id="jh-search" class="btn btn-primary float-left jh-search search" (click)="search()">
+                <fa-icon [icon]="'search'"></fa-icon>
+                <span jhiTranslate="ngBootTodoApp.task.home.searchLabel"> Search </span>
+            </button>
+
+
+        </form>
+
+    </div>
+
+    <div class="alert alert-warning" *ngIf="tasks?.length === 0">
+        <span jhiTranslate="ngBootTodoApp.task.home.notFound">No tasks found</span>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="table-responsive" *ngIf="tasks?.length > 0">
+                <table class="table table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                        <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <th jhiSortBy="title"><span jhiTranslate="ngBootTodoApp.task.title">Title</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <!--            <th jhiSortBy="description"><span jhiTranslate="ngBootTodoApp.task.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+                        <!--            <th jhiSortBy="dueDate"><span jhiTranslate="ngBootTodoApp.task.dueDate">Due Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+                        <th jhiSortBy="complete"><span jhiTranslate="ngBootTodoApp.task.complete">Complete</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <!--            <th jhiSortBy="userLogin"><span jhiTranslate="ngBootTodoApp.task.user">User</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+                        <th jhiSortBy="categoryCategoryName"><span
+                            jhiTranslate="ngBootTodoApp.task.category">Category</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let task of tasks ;trackBy: trackId">
+                        <td><a [routerLink]="['/task', task.id, 'view' ]">{{task.id}}</a></td>
+                        <td>{{task.title}}</td>
+                        <!--                <td>{{task.description}}</td>-->
+                        <!--                <td>{{task.dueDate | date:'mediumDate'}}</td>-->
+                        <td>{{task.complete}}</td>
+                        <!--                <td>-->
+                        <!--                    {{task.userLogin}}-->
+                        <!--                </td>-->
+                        <td>
+                            <div *ngIf="task.categoryId">
+                                <a [routerLink]="['/category', task.categoryId , 'view' ]">{{task.categoryCategoryName}}</a>
+                            </div>
+                        </td>
+                        <td class="text-right">
+                            <div class="btn-group">
+                                <button type="submit"
+                                        [routerLink]="['/task', task.id, 'view' ]"
+                                        class="btn btn-info btn-sm">
+                                    <fa-icon [icon]="'eye'"></fa-icon>
+                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/task', task.id, 'edit']"
+                                        class="btn btn-primary btn-sm">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/task', { outlets: { popup: task.id + '/delete'} }]"
+                                        replaceUrl="true"
+                                        queryParamsHandling="merge"
+                                        class="btn btn-danger btn-sm">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div [hidden]="tasks?.length === 0">
+                <div class="row justify-content-center">
+                    <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5"
+                                    [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage"
+                                    [maxSize]="5"
+                                    [rotate]="true" [boundaryLinks]="true"
+                                    (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+
+</div>

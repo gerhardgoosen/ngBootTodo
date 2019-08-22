@@ -1,0 +1,49 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="task">
+            <h2><span jhiTranslate="ngBootTodoApp.task.detail.title">Task</span> {{task.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="ngBootTodoApp.task.title">Title</span></dt>
+                <dd>
+                    <span>{{task.title}}</span>
+                </dd>
+                <dt><span jhiTranslate="ngBootTodoApp.task.description">Description</span></dt>
+                <dd>
+                    <span>{{task.description}}</span>
+                </dd>
+                <dt><span jhiTranslate="ngBootTodoApp.task.dueDate">Due Date</span></dt>
+                <dd>
+                    <span>{{task.dueDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="ngBootTodoApp.task.complete">Complete</span></dt>
+                <dd>
+                    <span>{{task.complete}}</span>
+                </dd>
+                <dt><span jhiTranslate="ngBootTodoApp.task.user">User</span></dt>
+                <dd>
+                    {{task.userLogin}}
+                </dd>
+                <dt><span jhiTranslate="ngBootTodoApp.task.category">Category</span></dt>
+                <dd>
+                    <div *ngIf="task.categoryId">
+                        <a [routerLink]="['/category', task.categoryId, 'view']">{{task.categoryCategoryName}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/task', task.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
